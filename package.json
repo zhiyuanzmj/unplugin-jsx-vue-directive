@@ -1,6 +1,6 @@
 {
   "name": "unplugin-jsx-vue-directive",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "packageManager": "pnpm@8.6.7",
   "description": "Description.",
   "keywords": [
