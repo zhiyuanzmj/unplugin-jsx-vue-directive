@@ -82,13 +82,6 @@ module.exports = {
 
 <br></details>
 
-## Sponsors
-
-<p align="center">
-  <a href="https://cdn.jsdelivr.net/gh/zhiyuanzmj/sponsors/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/zhiyuanzmj/sponsors/sponsors.svg'/>
-  </a>
-</p>
 
 ## License
 
