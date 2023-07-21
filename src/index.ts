@@ -1,12 +1,13 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { type Options, resolveOption } from './core/options'
+import { transform } from './core/transform'
 
 export default createUnplugin<Options | undefined, false>((rawOptions = {}) => {
   const options = resolveOption(rawOptions)
   const filter = createFilter(options.include, options.exclude)
 
-  const name = 'unplugin-vue-jsx-directive'
+  const name = 'unplugin-jsx-vue-directive'
   return {
     name,
     enforce: options.enforce,
@@ -15,10 +16,6 @@ export default createUnplugin<Options | undefined, false>((rawOptions = {}) => {
       return filter(id)
     },
 
-    transform(code, id) {
-      // eslint-disable-next-line no-console
-      console.log(code, id)
-      return undefined
-    },
+    transform,
   }
 })

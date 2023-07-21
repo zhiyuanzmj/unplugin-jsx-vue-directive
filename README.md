@@ -1,13 +1,13 @@
-# unplugin-vue-jsx-directive [![npm](https://img.shields.io/npm/v/unplugin-vue-jsx-directive.svg)](https://npmjs.com/package/unplugin-vue-jsx-directive)
+# unplugin-jsx-vue-directive [![npm](https://img.shields.io/npm/v/unplugin-jsx-vue-directive.svg)](https://npmjs.com/package/unplugin-jsx-vue-directive)
 
-[![Unit Test](https://github.com/zhiyuanzmj/unplugin-vue-jsx-directive/actions/workflows/unit-test.yml/badge.svg)](https://github.com/zhiyuanzmj/unplugin-vue-jsx-directive/actions/workflows/unit-test.yml)
+[![Unit Test](https://github.com/zhiyuanzmj/unplugin-jsx-vue-directive/actions/workflows/unit-test.yml/badge.svg)](https://github.com/zhiyuanzmj/unplugin-jsx-vue-directive/actions/workflows/unit-test.yml)
 
 Starter template for [unplugin](https://github.com/unjs/unplugin).
 
 ## Installation
 
 ```bash
-npm i -D unplugin-vue-jsx-directive
+npm i -D unplugin-jsx-vue-directive
 ```
 
 <details>
@@ -15,7 +15,7 @@ npm i -D unplugin-vue-jsx-directive
 
 ```ts
 // vite.config.ts
-import UnpluginStarter from 'unplugin-vue-jsx-directive/vite'
+import UnpluginStarter from 'unplugin-jsx-vue-directive/vite'
 
 export default defineConfig({
   plugins: [UnpluginStarter()],
@@ -29,7 +29,7 @@ export default defineConfig({
 
 ```ts
 // rollup.config.js
-import UnpluginStarter from 'unplugin-vue-jsx-directive/rollup'
+import UnpluginStarter from 'unplugin-jsx-vue-directive/rollup'
 
 export default {
   plugins: [UnpluginStarter()],
@@ -46,7 +46,7 @@ export default {
 import { build } from 'esbuild'
 
 build({
-  plugins: [require('unplugin-vue-jsx-directive/esbuild')()],
+  plugins: [require('unplugin-jsx-vue-directive/esbuild')()],
 })
 ```
 
@@ -59,7 +59,7 @@ build({
 // webpack.config.js
 module.exports = {
   /* ... */
-  plugins: [require('unplugin-vue-jsx-directive/webpack')()],
+  plugins: [require('unplugin-jsx-vue-directive/webpack')()],
 }
 ```
 
@@ -72,7 +72,7 @@ module.exports = {
 // vue.config.js
 module.exports = {
   configureWebpack: {
-    plugins: [require('unplugin-vue-jsx-directive/webpack')()],
+    plugins: [require('unplugin-jsx-vue-directive/webpack')()],
   },
 }
 ```

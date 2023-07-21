@@ -15,7 +15,7 @@ export type OptionsResolved = Overwrite<
 
 export function resolveOption(options: Options): OptionsResolved {
   return {
-    include: options.include || [/\.[cm]?[jt]sx?$/],
+    include: options.include || [/\.(vue|[cm]?[jt]sx?)$/],
     exclude: options.exclude || [/node_modules/],
     enforce: 'enforce' in options ? options.enforce : 'pre',
   }
