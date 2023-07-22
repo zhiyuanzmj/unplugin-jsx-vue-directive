@@ -4,7 +4,7 @@
 
 `v-if` & `v-for` directive for jsx.
 
-Thank for [@sxzz](https://github.com/sxzz).
+Thanks to [@sxzz](https://github.com/sxzz) for the [@vue-macros/common](https://github.com/vue-macros/vue-macros/tree/main/packages/common)
 
 <img width="1032" alt="image" src="https://github.com/zhiyuanzmj/unplugin-jsx-vue-directive/assets/32807958/83be0c3c-baff-4706-a0ed-344ed8315658">
 
@@ -22,10 +22,10 @@ npm i -D unplugin-jsx-vue-directive
 
 ```ts
 // vite.config.ts
-import UnpluginStarter from 'unplugin-jsx-vue-directive/vite'
+import JsxVueDirective from 'unplugin-jsx-vue-directive/vite'
 
 export default defineConfig({
-  plugins: [UnpluginStarter()],
+  plugins: [JsxVueDirective()],
 })
 ```
 
@@ -36,10 +36,10 @@ export default defineConfig({
 
 ```ts
 // rollup.config.js
-import UnpluginStarter from 'unplugin-jsx-vue-directive/rollup'
+import JsxVueDirective from 'unplugin-jsx-vue-directive/rollup'
 
 export default {
-  plugins: [UnpluginStarter()],
+  plugins: [JsxVueDirective()],
 }
 ```
 
