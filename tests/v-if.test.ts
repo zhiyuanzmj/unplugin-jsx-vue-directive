@@ -1,89 +1,97 @@
 import { expect, test } from 'vitest'
-import { MagicString, babelParse } from '@vue-macros/common'
-import { vIfTransform } from '../src/core/transform/v-if'
+import { transform } from '../src/core/transform'
 
-function getOptions(code: string, lang = 'vue') {
-  return {
-    parseResult: babelParse(code, lang === 'vue' ? 'js' : lang),
-    s: new MagicString(code),
-  }
-}
-
-test('v-if', () => {
-  const result = vIfTransform(
-    getOptions(`
-      export default ()=> <>
-        <div v-if={0}>0</div>  
-        <div v-if={1}>1</div>  
-      </>
-    `)
+test('v-if for vue', () => {
+  const result = transform(
+    `
+    <script setup lang="tsx">
+      defineRender(()=> 
+        <>
+          <div v-if={0}>0</div>  
+          <div v-if={1}>1</div>  
+        </>
+      )
+    </script>
+    `,
+    'test.vue'
   )
-  expect(result.toString()).toMatchInlineSnapshot(`
+  expect(result?.code).toMatchInlineSnapshot(`
     "
-          export default ()=> <>
-            { 0 ? <div>0</div> : ''}  
-            { 1 ? <div>1</div> : ''}  
-          </>
+        <script setup lang=\\"tsx\\">
+          defineRender(()=> 
+            <>
+              { 0 ? <div>0</div> : ''}  
+              { 1 ? <div>1</div> : ''}  
+            </>
+          )
+        </script>
         "
   `)
 })
 
-test('v-else-if', () => {
-  const result = vIfTransform(
-    getOptions(`
+test('v-else-if for vue', () => {
+  const result = transform(
+    `
+    <script setup lang="tsx">
       const foo = 0
-      export default () => <>
+      defineRender(() => <>
         <div v-if={foo===0}>0</div>  
         <div v-else-if={foo===1}>1</div>  
-      </>
-    `)
+      </>)
+    </script>
+    `,
+    'test.vue'
   )
-  expect(result.toString()).toMatchInlineSnapshot(`
+  expect(result?.code).toMatchInlineSnapshot(`
     "
+        <script setup lang=\\"tsx\\">
           const foo = 0
-          export default () => <>
+          defineRender(() => <>
             { foo===0 ? <div>0</div> :  
             foo===1 ? <div>1</div> : ''}  
-          </>
+          </>)
+        </script>
         "
   `)
 })
 
-test('v-else-if', () => {
-  const result = vIfTransform(
-    getOptions(`
-      const foo = 2
-      export default () => <>
-        <div v-if={foo===0}>0</div>  
-        <div v-else-if={foo===1}>1</div>
-        <div v-else-if={foo===2}>2</div>  
-      </>
-    `)
+test('v-else-if for tsx', () => {
+  const result = transform(
+    `
+    const foo = 2
+    export default () => <>
+      <div v-if={foo===0}>0</div>  
+      <div v-else-if={foo===1}>1</div>
+      <div v-else-if={foo===2}>2</div>  
+    </>
+    `,
+    'test.tsx'
   )
-  expect(result.toString()).toMatchInlineSnapshot(`
+  expect(result?.code).toMatchInlineSnapshot(`
     "
-          const foo = 2
-          export default () => <>
-            { foo===0 ? <div>0</div> :  
-            foo===1 ? <div>1</div> :
-            foo===2 ? <div>2</div> : ''}  
-          </>
+        const foo = 2
+        export default () => <>
+          { foo===0 ? <div>0</div> :  
+          foo===1 ? <div>1</div> :
+          foo===2 ? <div>2</div> : ''}  
+        </>
         "
   `)
 })
 
-test('v-else', () => {
-  const result = vIfTransform(
-    getOptions(`
+test('v-else for jsx', () => {
+  const result = transform(
+    `
       const foo = 2
       export default () => <>
         <div v-if={foo===0}>0</div>  
         <div v-else-if={foo===1}>1</div>
         <div v-else={foo===2}>2</div>   
       </>
-    `)
+    `,
+    'test.jsx'
   )
-  expect(result.toString()).toMatchInlineSnapshot(`
+  expect(result?.code).toMatchInlineSnapshot(`
     "
           const foo = 2
           export default () => <>
@@ -95,9 +103,9 @@ test('v-else', () => {
   `)
 })
 
-test('nested v-if', () => {
-  const result = vIfTransform(
-    getOptions(`
+test('nested v-if for vue', () => {
+  const result = transform(
+    `
       const foo = 2
       export default () => <>
         <div v-if={foo===0}>
@@ -108,9 +116,10 @@ test('nested v-if', () => {
         <div v-else-if={foo===1}>1</div>
         <div v-else={foo===2}>2</div>   
       </>
-    `)
+    `,
+    'test.tsx'
   )
-  expect(result.toString()).toMatchInlineSnapshot(`
+  expect(result?.code).toMatchInlineSnapshot(`
     "
           const foo = 2
           export default () => <>

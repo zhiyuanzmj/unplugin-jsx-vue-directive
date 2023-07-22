@@ -12,16 +12,24 @@ export function transform(code: string, id: string) {
   const lang = getLang(id)
 
   let content = code
+  let asts = [babelParse(code, lang === 'vue' ? 'js' : lang)]
+  let offset = 0
   if (lang === 'vue') {
-    const { scriptSetup, script } = parseSFC(code, id)
+    const { scriptSetup, getSetupAst, script, getScriptAst } = parseSFC(
+      code,
+      id
+    )
     content = `${scriptSetup?.content}${script?.content}`
+    offset = scriptSetup?.loc.start.offset || 0
+    asts = [getSetupAst(), getScriptAst()].filter(Boolean)! as any
   }
   if (!/v-for|v-if/.test(content)) return null
 
-  const parseResult = babelParse(code, lang === 'vue' ? 'js' : lang)
   const s = new MagicString(code)
-  if (content.includes('v-if')) vIfTransform({ s, parseResult })
-  if (content.includes('v-for')) vForTransform({ s, parseResult })
+  for (const ast of asts) {
+    vIfTransform(ast, s, offset)
+    vForTransform(ast, s, offset)
+  }
 
   return getTransformResult(s, id)
 }

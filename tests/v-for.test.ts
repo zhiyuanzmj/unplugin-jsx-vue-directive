@@ -1,33 +1,30 @@
 import { expect, test } from 'vitest'
-import { MagicString, babelParse } from '@vue-macros/common'
-import { vForTransform } from '../src/core/transform/v-for'
+import { transform } from '../src/core/transform'
 
-function getOptions(code: string, lang = 'vue') {
-  return {
-    parseResult: babelParse(code, lang === 'vue' ? 'js' : lang),
-    s: new MagicString(code),
-  }
-}
-
-test('v-for', () => {
-  const result = vForTransform(
-    getOptions(`
+test('v-for for vue', () => {
+  const result = transform(
+    `
+    <script setup lang="tsx">
       const list = Array(4).fill('').map((_,index)=>index)
-      export default ()=> <>
+      defineRender(()=> <>
         <div v-for={i in list} key={i}>
           <div>{i}</div>
         </div>  
-      </>
-    `)
+      </>)
+    </script>
+    `,
+    'test.vue'
   )
-  expect(result.toString()).toMatchInlineSnapshot(`
+  expect(result?.code).toMatchInlineSnapshot(`
     "
+        <script setup lang=\\"tsx\\">
           const list = Array(4).fill('').map((_,index)=>index)
-          export default ()=> <>
-             { list.map(i=><div  key={i}>
+          defineRender(()=> <>
+             { list.map(i=><div key={i}>
               <div>{i}</div>
             </div>) }  
-          </>
+          </>)
+        </script>
         "
   `)
 })

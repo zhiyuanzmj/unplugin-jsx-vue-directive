@@ -1,13 +1,14 @@
-import { type JSXAttribute, type JSXElement, type Node } from '@babel/types'
+import {
+  type JSXAttribute,
+  type JSXElement,
+  type Node,
+  type Program,
+} from '@babel/types'
 import { type MagicString, walkAST } from '@vue-macros/common'
 
-export function vIfTransform({
-  s,
-  parseResult,
-}: {
-  s: MagicString
-  parseResult: any
-}) {
+export function vIfTransform(ast: Program, s: MagicString, offset = 0) {
+  if (!s.slice(ast.start! + offset, ast.end! + offset).includes('v-if')) return
+
   const nodeMap = new Map<
     any,
     {
@@ -16,7 +17,7 @@ export function vIfTransform({
     }[]
   >()
 
-  walkAST<Node>(parseResult, {
+  walkAST<Node>(ast, {
     enter(node, parent) {
       if (node.type !== 'JSXElement') return
 
@@ -41,22 +42,22 @@ export function vIfTransform({
     if (['v-if', 'v-else-if'].includes(`${attribute.name.name}`)) {
       if (attribute.value)
         s.appendLeft(
-          node.start!,
+          node.start! + offset,
           `${attribute.name.name === 'v-if' ? '{ ' : ''}${s.slice(
-            attribute.value.start! + 1,
-            attribute.value.end! - 1
+            attribute.value.start! + offset + 1,
+            attribute.value.end! + offset - 1
           )} ? `
         )
 
       s.appendRight(
-        node.end!,
+        node.end! + offset,
         `${nodes[index + 1]?.attribute.name.name}`.startsWith('v-else')
           ? ' :'
           : " : ''}"
       )
-      s.remove(attribute.start! - 1, attribute.end!)
+      s.remove(attribute.start! + offset - 1, attribute.end! + offset)
     } else {
-      s.appendRight(node.end!, ' }')
+      s.appendRight(node.end! + offset, ' }')
     }
   })
 
