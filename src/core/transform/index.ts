@@ -5,28 +5,33 @@ import {
   getTransformResult,
   parseSFC,
 } from '@vue-macros/common'
+import { type Program } from '@babel/types'
 import { vIfTransform } from './v-if'
 import { vForTransform } from './v-for'
 
 export function transform(code: string, id: string) {
   const lang = getLang(id)
 
-  let content = code
-  let asts = [babelParse(code, lang === 'vue' ? 'js' : lang)]
-  let offset = 0
+  let asts: { ast: Program; offset: number }[] = []
   if (lang === 'vue') {
     const { scriptSetup, getSetupAst, script, getScriptAst } = parseSFC(
       code,
       id
     )
-    content = `${scriptSetup?.content}${script?.content}`
-    offset = scriptSetup?.loc.start.offset || 0
-    asts = [getSetupAst(), getScriptAst()].filter(Boolean)! as any
+    if (script) {
+      asts.push({ ast: getScriptAst()!, offset: script.loc.start.offset })
+    }
+    if (scriptSetup) {
+      asts.push({ ast: getSetupAst()!, offset: scriptSetup.loc.start.offset })
+    }
+  } else if (['jsx', 'tsx'].includes(lang)) {
+    asts = [{ ast: babelParse(code, lang), offset: 0 }]
+  } else {
+    return null
   }
-  if (!/v-for|v-if/.test(content)) return null
 
   const s = new MagicString(code)
-  for (const ast of asts) {
+  for (const { ast, offset } of asts) {
     vIfTransform(ast, s, offset)
     vForTransform(ast, s, offset)
   }
