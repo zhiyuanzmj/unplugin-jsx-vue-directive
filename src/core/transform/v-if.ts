@@ -53,7 +53,7 @@ export function vIfTransform(ast: Program, s: MagicString, offset = 0) {
         node.end! + offset,
         `${nodes[index + 1]?.attribute.name.name}`.startsWith('v-else')
           ? ' :'
-          : " : ''}"
+          : " : '' }"
       )
       s.remove(attribute.start! + offset - 1, attribute.end! + offset)
     } else {

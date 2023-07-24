@@ -20,8 +20,8 @@ test('v-if for vue', () => {
         <script setup lang=\\"tsx\\">
           defineRender(()=> 
             <>
-              { 0 ? <div>0</div> : ''}  
-              { 1 ? <div>1</div> : ''}  
+              { 0 ? <div>0</div> : '' }  
+              { 1 ? <div>1</div> : '' }  
             </>
           )
         </script>
@@ -48,7 +48,7 @@ test('v-else-if for vue', () => {
           const foo = 0
           defineRender(() => <>
             { foo===0 ? <div>0</div> :  
-            foo===1 ? <div>1</div> : ''}  
+            foo===1 ? <div>1</div> : '' }  
           </>)
         </script>
         "
@@ -73,7 +73,7 @@ test('v-else-if for tsx', () => {
         export default () => <>
           { foo===0 ? <div>0</div> :  
           foo===1 ? <div>1</div> :
-          foo===2 ? <div>2</div> : ''}  
+          foo===2 ? <div>2</div> : '' }  
         </>
         "
   `)
@@ -107,7 +107,7 @@ test('nested v-if for vue', () => {
   const result = transform(
     `
       const foo = 2
-      export default () => <>
+      export default () =><>
         <div v-if={foo===0}>
           <div v-if={foo==0}>0-0</div>
           <div v-else-if={foo==1}>0-1</div>
@@ -122,7 +122,7 @@ test('nested v-if for vue', () => {
   expect(result?.code).toMatchInlineSnapshot(`
     "
           const foo = 2
-          export default () => <>
+          export default () =><>
             { foo===0 ? <div>
               { foo==0 ? <div>0-0</div> :
               foo==1 ? <div>0-1</div> :

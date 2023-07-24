@@ -2,9 +2,11 @@
 
 [![Unit Test](https://github.com/zhiyuanzmj/unplugin-jsx-vue-directive/actions/workflows/unit-test.yml/badge.svg)](https://github.com/zhiyuanzmj/unplugin-jsx-vue-directive/actions/workflows/unit-test.yml)
 
+> This project has been transferred to [@vue-macros/jsx-directive](https://github.com/vue-macros/vue-macros/tree/main/packages/jsx-directive) 🎉
+
 `v-if` & `v-for` directive for jsx.
 
-Thanks to [@sxzz](https://github.com/sxzz) for the [@vue-macros/common](https://github.com/vue-macros/vue-macros/tree/main/packages/common)
+Thanks [@sxzz](https://github.com/sxzz) for the [@vue-macros/common](https://github.com/vue-macros/vue-macros/tree/main/packages/common)
 
 <img width="1032" alt="image" src="https://github.com/zhiyuanzmj/unplugin-jsx-vue-directive/assets/32807958/83be0c3c-baff-4706-a0ed-344ed8315658">
 
