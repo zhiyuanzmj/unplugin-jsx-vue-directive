@@ -1,5 +1,7 @@
 # unplugin-jsx-vue-directive [![npm](https://img.shields.io/npm/v/unplugin-jsx-vue-directive.svg)](https://npmjs.com/package/unplugin-jsx-vue-directive)
 
+## This repository is no longer maintained. Please migrate to [@vue-macors/jsx-directive](https://github.com/vue-macros/vue-macros/tree/main/packages/jsx-directive)
+
 [![Unit Test](https://github.com/zhiyuanzmj/unplugin-jsx-vue-directive/actions/workflows/unit-test.yml/badge.svg)](https://github.com/zhiyuanzmj/unplugin-jsx-vue-directive/actions/workflows/unit-test.yml)
 
 > This project has been transferred to [@vue-macros/jsx-directive](https://github.com/vue-macros/vue-macros/tree/main/packages/jsx-directive) 🎉
@@ -9,9 +11,6 @@
 Thanks [@sxzz](https://github.com/sxzz) for the [@vue-macros/common](https://github.com/vue-macros/vue-macros/tree/main/packages/common)
 
 <img width="1032" alt="image" src="https://github.com/zhiyuanzmj/unplugin-jsx-vue-directive/assets/32807958/83be0c3c-baff-4706-a0ed-344ed8315658">
-
-## TODO:
- - [ ] `v-for` TypeScript support
  
 ## Installation
 
